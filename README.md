@@ -10,4 +10,4 @@ TBC
 ## Data
 Data is stored in ./data directory on local drive, with raw files converted to .csv:
 * './data/20170622_1514_SV (376k).csv'
-* '.data/SVC Aggregate (115k).csv'
+* './data/SVC Aggregate (115k).csv'
