@@ -2,7 +2,7 @@
 
 ## Authors
 * Julian Kudszus, Soham Kudtarkar, Spencer Lee, Nicholas Hirons
-* Project and data courtesy of [CarForce](http://www.thecarforce.com/"CarForce")
+* Project and data courtesy of [CarForce](http://www.thecarforce.com/)
 
 ## Outline
 TBC
