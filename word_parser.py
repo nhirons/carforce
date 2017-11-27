@@ -1,4 +1,6 @@
 from math import log
+import string
+import re
 
 # Build a cost dictionary, assuming Zipf's law and cost = -math.log(probability).
 
@@ -36,12 +38,31 @@ def infer_spaces(s):
 
 def separate_merged_words(s):
     
+    def has_digit(s):
+        return bool(re.search(r'\d', s))
+
     phrases = s.split(',')
 
-    for i in range(len(phrases)):
-        phrases[i] = phrases[i].replace(' ','').lower()
-        phrases[i] = infer_spaces(phrases[i])
+    new_phrases = []
 
-    s = ', '.join(phrases)
+    for phrase in phrases:
+
+        # Remove other punctuation
+        phrase = phrase.translate({ord(i):None for i in string.punctuation})
+
+        # Avoid including numbers when separating
+        if has_digit(phrase):
+            new_phrase_list = re.findall(r'\d+|\D+', phrase)
+            new_phrase_list = [infer_spaces(word.replace(' ','').lower()) if not has_digit(word)
+                                else word for word in new_phrase_list]
+            new_phrases.append(' '.join(new_phrase_list))
+
+        else:
+            phrase = phrase.replace(' ','').lower()
+            phrase = infer_spaces(phrase)
+            new_phrases.append(phrase)
+
+
+    s = ', '.join(new_phrases)
 
     return s
