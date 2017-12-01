@@ -1,6 +1,7 @@
 from math import log
 import string
 import re
+from itertools import tee
 
 # Build a cost dictionary, assuming Zipf's law and cost = -math.log(probability).
 
@@ -38,31 +39,22 @@ def infer_spaces(s):
 
 def separate_merged_words(s):
     
-    def has_digit(s):
-        return bool(re.search(r'\d', s))
+    # Remove other punctuation
+    s = s.translate({ord(i):None for i in string.punctuation})
 
-    phrases = s.split(',')
+    # Remove digits
+    s = s.translate({ord(i):None for i in string.digits})
 
-    new_phrases = []
+    # Remove spaces and lower
+    s = s.replace(' ','').lower()
 
-    for phrase in phrases:
-
-        # Remove other punctuation
-        phrase = phrase.translate({ord(i):None for i in string.punctuation})
-
-        # Avoid including numbers when separating
-        if has_digit(phrase):
-            new_phrase_list = re.findall(r'\d+|\D+', phrase)
-            new_phrase_list = [infer_spaces(word.replace(' ','').lower()) if not has_digit(word)
-                                else word for word in new_phrase_list]
-            new_phrases.append(' '.join(new_phrase_list))
-
-        else:
-            phrase = phrase.replace(' ','').lower()
-            phrase = infer_spaces(phrase)
-            new_phrases.append(phrase)
-
-
-    s = ', '.join(new_phrases)
+    # Infer spaces on merged text
+    s = infer_spaces(s)
 
     return s
+
+def pairwise(iterable):
+    "s -> (s0,s1), (s1,s2), (s2, s3), ..."
+    a, b = tee(iterable)
+    next(b, None)
+    return zip(a, b)
