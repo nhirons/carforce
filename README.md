@@ -5,7 +5,7 @@
 * Project and data courtesy of [CarForce](http://www.thecarforce.com/)
 
 ## Outline
-* Predict likely operations from error codes, time of year and car features such as make, age, mileage, engine size
+* Predict likely service operations from error codes, time of year and car features such as make, age, mileage, engine size
 
 ## Data
 Raw data is stored in ./data directory on local drive, with raw files converted to .csv:
@@ -14,7 +14,7 @@ Raw data is stored in ./data directory on local drive, with raw files converted 
 * ./data/all_data.csv
 * ./data/error_codes_only.csv
 
-Preprocessed data is stored in all.csv
+Preprocessed data is stored in all.csv in main directory. Note:
 * Raw variables to ignore: make, op_descriptions, date, appointment_month, season, year
 * Target variables have a 'y_' prefix
 * Input variables (all other columns) are either one hot encoded or numeric
